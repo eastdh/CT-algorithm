@@ -98,8 +98,23 @@ def solution(n, left, right):
 ### 사용한 개념
 - 인쇄 대기열의 길이가 100 이하이므로, 문제 조건대로 priorities가 조작되게끔 구현하였다.
     - 먼저 0 <= L < len(priorities) 인 L에 대해서 priorities[L:]을 하나의 구역 newPri으로 잡는다.
-    - 각 newPri 별 최고값을 M이라 할 때, M을 기준으로 newPri = newPri[M:] + newPri[:M]으로 순서를 바꾸어 수정한다. 
+    - 각 newPri 별 최고값의 인덱스를 M이라 할 때, M을 기준으로 newPri = newPri[M:] + newPri[:M]으로 순서를 바꾸어 수정한다. 
     - 각 시행이 끝날 때마다 M은 newPri의 가장 왼쪽으로 이동하고, 이렇게 수정된 newPri를 priorities[:L]뒤에 붙여 priorities 전체를 수정한다.
     - 같은 시행을 각 문서의 index를 표시한 리스트에도 적용하여, 시행이 끝났을 때 어떤 문서가 어디로 이동했는지 알 수 있도록 하였다.
 - 이 알고리즘은 최악의 경우 O(n^2)의 수행시간을 가진다. 각 구역의 시작점을 담당하는 L은 0부터 n까지 탐색하고 각 구역의 최대값을 한 번의 반복마다 구하기 때문이다.
     * 이 복잡도로도 답이 나오는 이유는 대기목록의 길이가 100 이하이기 때문이다.
+- 코드는 다음과 같다.
+    ```py
+    def solution(priorities, location):
+    idx = list(range(len(priorities)))
+    for L in range(len(priorities)):
+        new_p = priorities[L:]
+        new_i = idx[L:]
+        if new_p[0] != max(new_p): # 이 Line을 제거해도 같은 결과값이 나올 것이다.
+            M = new_p.index(max(new_p))
+            new_p = new_p[M:] + new_p[:M]
+            new_i = new_i[M:] + new_i[:M]
+            priorities = priorities[:L] + new_p
+            idx = idx[:L] + new_i
+    return idx.index(location) + 1
+    ```
