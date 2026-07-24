@@ -44,16 +44,23 @@
 
 ```java
 import java.util.*;
+
 class Solution {
-  public long solution (long n) {
-    char[] arr = String.valueOf(n).toCharArray();
-    Arrays.sort(arr);
-    //내림차순 위해
-    //StringBuilder -> 수정 가능한 String
-    StringBuilder sb = new StringBuilder(new String(arr));
-    sb.reverse();
-    return Long.parseLong(sb.toString());
-  }
+    public long solution(long n) {
+        // 1. 문자열로 변환 후 정렬
+        char[] arr = String.valueOf(n).toCharArray();
+        Arrays.sort(arr);
+        
+        // 2. String 생성자를 거치지 않고 바로 StringBuilder에 배열 입력
+        StringBuilder sb = new StringBuilder(new String(arr)); 
+        // 내림차순 정렬을 위해 뒤집기
+        sb.reverse();
+        
+        // 3. 숫자로 변환하여 반환
+        return Long.parseLong(sb.toString());
+    }
+}
+
 ```
 
 > 출처: 프로그래머스 코딩 테스트 연습, https://school.programmers.co.kr/learn/challenges
