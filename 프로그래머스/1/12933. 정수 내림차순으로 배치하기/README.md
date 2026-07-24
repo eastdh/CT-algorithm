@@ -42,4 +42,18 @@
 </tbody>
       </table>
 
+```java
+import java.util.*;
+class Solution {
+  public long solution (long n) {
+    char[] arr = String.valueOf(n).toCharArray();
+    Arrays.sort(arr);
+    //내림차순 위해
+    //StringBuilder -> 수정 가능한 String
+    StringBuilder sb = new StringBuilder(new String(arr));
+    sb.reverse();
+    return Long.parseLong(sb.toString());
+  }
+```
+
 > 출처: 프로그래머스 코딩 테스트 연습, https://school.programmers.co.kr/learn/challenges
