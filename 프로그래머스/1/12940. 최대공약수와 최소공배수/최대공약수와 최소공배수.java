@@ -13,9 +13,7 @@ class Solution {
   }
 
   public int lcm(int a, int b) {
-    int gcd = gcd(a, b);
-
-    return gcd * (a / gcd) * (b / gcd);
+    return a * b / gcd(a, b);
   }
 
   public int[] solution(int n, int m) {
